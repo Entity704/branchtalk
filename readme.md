@@ -82,6 +82,6 @@ node index.js
 
 ---
 
-For more information about API features, please refer to the [API documentation](https://github.com/Entity704/branchtalk/#Welcome+back)
+For more information about API features, please refer to the [API documentation](https://github.com/Entity704/branchtalk/#welcome-back)
 
 ### Welcome back
