@@ -19,26 +19,26 @@ Supports creating root discussions, replying with sub-nodes, and branching into 
 ## Project Structure
 
 ```
-[client]
+client/
  +-- index.html
- +-- [css]
+ +-- css/
  |    +-- style.css
- +-- [js]
+ +-- js/
       +-- index.js
 
-server
+server/
  +-- index.js
- +-- [routes]
+ +-- routes/
  |    +-- roots.js
  |    +-- nodes.js
  |    +-- index.js
- +-- [services]
+ +-- services/
  |    +-- dataServices.js
- +-- [utils]
+ +-- utils/
  |    +-- id.js
- +-- [data]
+ +-- data/
       +-- index.json
-      +-- [roots]
+      +-- roots/
 ```
 
 
@@ -79,3 +79,9 @@ node index.js
 - ~~Make more bugs~~
 - ~~Remove herobrine~~
 - ~~Make my network be better to connect to github~~
+
+---
+
+For more information about API features, please refer to the [API documentation](https://github.com/Entity704/branchtalk/#Welcome+back)
+
+### Welcome back
