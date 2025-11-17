@@ -67,6 +67,12 @@ node index.js
 
 3. Open `client/index.html` in your browser for the homepage
 
+### On other OS:
+
+1. **IDK**
+
+2. Help me to write this thx
+
 ## TODO List:
 - Write client
 - Expand more features
