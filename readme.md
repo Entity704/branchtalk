@@ -21,10 +21,13 @@ Supports creating root discussions, replying with sub-nodes, and branching into 
 ```
 client/
  +-- index.html
+ +-- root.html
  +-- css/
  |    +-- style.css
  +-- js/
       +-- index.js
+      +-- root.js
+      +-- api.js
 
 server/
  +-- index.js
