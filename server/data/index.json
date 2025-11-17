@@ -1,11 +1,4 @@
 {
   "version": 1,
-  "roots": [
-    {
-      "id": "150e3835ab40e5860c2baeeceeee3772783ccf0a2e4bedf2601a340356fdb880",
-      "title": "123",
-      "timestamp": 1763360958290,
-      "parents": []
-    }
-  ]
+  "roots": []
 }
