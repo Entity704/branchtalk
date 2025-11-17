@@ -46,7 +46,7 @@ branchtalk/
            +-- index.json                // index file
            +-- roots/
                 +-- ab/                  // first two digits of the ID
-                     +-- abf129….json  // branch tree file
+                     +-- abf129….json    // branch tree file
 ```
 
 
