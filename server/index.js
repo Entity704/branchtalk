@@ -11,4 +11,10 @@ app.get('/api', (req, res) => {
 const rootsRoutes = require('./routes/roots');
 app.use('/api/root', rootsRoutes);
 
+const nodesRoutes = require('./routes/nodes');
+app.use('/api/node', nodesRoutes);
+
+const indexRoutes = require('./routes/index');
+app.use('/api/index', indexRoutes);
+
 app.listen(PORT, () => { console.log(`Branchtalk running on port ${PORT}`) });
