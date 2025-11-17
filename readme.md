@@ -28,6 +28,7 @@ branchtalk/
  |    +-- root.html
  |    +-- css/
  |    |    +-- style.css
+ |    |    +-- root.css
  |    +-- js/
  |         +-- index.js
  |         +-- root.js
