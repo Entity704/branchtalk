@@ -80,7 +80,7 @@ cd server
 node index.js
 ```
 
-4. Open `client/index.html` in your browser for the homepage
+4. Open `yourip:8605` in your browser for the homepage
 
 ### On other OS:
 
