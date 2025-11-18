@@ -3,14 +3,28 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>root - Branchtalk</title>
+    <title>Tree - Branchtalk</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/root.css">
     <script type="module" src="js/root.js" defer></script>
 </head>
 
 <body>
-    <div id="app">
+    <div id="node-tree">
+    </div>
+    <div class="editor">
+        <div>
+            <label class="checkbox">
+                <input type="checkbox" id="isRoot" title="Submit new root node">
+                Root Node
+            </label>
+
+            <input type="text" id="editor-title" placeholder="Title">
+            <input type="text" id="editor-tags" placeholder="Tags (comma separated)">
+            <button id="submit">Submit</button>
+        </div>
+        <div class="refs" id="refs"></div>
+        <textarea id="editor-textarea" placeholder="Content..."></textarea>
     </div>
 </body>
 
