@@ -5,3 +5,10 @@
 body {
     background-color: #eee;
 }
+
+input {
+    outline-width: 1px;
+}
+input:focus {
+    outline-color: #3b82f6;
+}

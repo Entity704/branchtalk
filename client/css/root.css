@@ -50,63 +50,92 @@ body {
 /* ---------- Editor ---------- */
 .editor {
     position: fixed;
-    bottom: 1vh;
-    left: 3.5vw;
-    width: 90vw;
-    height: 35vh;
-    padding: 1.5vw;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 800px;
     background-color: #fafafa;
-    border: 0.5vw solid #ddd;
+    border: 1px solid #ddd;
     border-radius: 1em;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-sizing: border-box;
+    z-index: 10;
 }
 
-.editor > div {
+/* 顶部标题、checkbox和按钮区域 */
+.editor > .top-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+/* checkbox样式 */
+.checkbox {
     display: flex;
     align-items: center;
-    gap: 1vw;
-    flex-wrap: wrap;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+    user-select: none;
 }
 
-.checkbox {
-    display: inline-flex;
-    align-items: center;
-    font-size: small;
-    text-align: center;
-}
-
-#editor-title, #editor-tags {
-    padding: 0.3em 0.5em;
-    border-radius: 0.4em;
+/* 输入框：标题和tags */
+#editor-title,
+#editor-tags {
+    flex: 1 1 auto;
+    min-width: 100px;
+    padding: 0.4rem 0.5rem;
+    border-radius: 0.4rem;
     border: 1px solid #ccc;
-    font-size: 0.95em;
+    font-size: 0.95rem;
+    box-sizing: border-box;
 }
 
+/* 提交按钮 */
 #submit {
-    padding: 0.4em 0.8em;
-    background-color: #00bcd4;
-    color: white;
+    padding: 0.45rem 0.75rem;
     border: none;
-    border-radius: 0.4em;
+    background-color: #3b82f6;
+    color: #fff;
+    border-radius: 0.4rem;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
-
 #submit:hover {
-    background-color: #00acc1;
+    background-color: #2563eb;
 }
 
+/* refs显示区 */
+.refs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin: 0.5rem 0;
+}
+
+/* ref单元 */
+.ref-card {
+    background-color: #f0f0f0;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+    font-size: 0.8rem;
+}
+
+/* 文本区域 */
 textarea {
-    display: block;
-    width: 88vw;
-    height: 20vh;
-    margin-top: 1vh;
-    padding: 0.5em;
-    resize: none;
+    width: 100%;
+    min-height: 6rem;
+    padding: 0.5rem;
     border: 1px solid #ccc;
-    border-radius: 0.5em;
-    background-color: #fff;
+    border-radius: 0.5rem;
+    resize: vertical;
+    font-size: 0.95rem;
+    box-sizing: border-box;
 }
-
 textarea:focus {
     outline: none;
+    border-color: #3b82f6;
 }
