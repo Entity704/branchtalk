@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 app.use(express.json());
 
@@ -17,4 +18,6 @@ app.use('/api/node', nodesRoutes);
 const indexRoutes = require('./routes/index');
 app.use('/api/index', indexRoutes);
 
-app.listen(PORT, () => { console.log(`Branchtalk running on port ${PORT}`) });
+app.use(express.static(path.join(__dirname, '..', 'client')));
+
+app.listen(PORT, () => { console.log(`Branchtalk API running on port ${PORT}`) });

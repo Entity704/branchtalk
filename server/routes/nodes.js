@@ -21,7 +21,7 @@ router.post('/create', (req, res) => {
         const pid = p.id;
         const proot = p.rootid || rootid;
 
-        if (p.type === "direct" && p.rootid !== rootid) {
+        if (p.type === "direct" && p.rootid !== rootid && p.id !== rootid) {
             return res.status(400).json({ error: "direct parent must be in same root" });
         }
 

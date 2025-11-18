@@ -7,7 +7,7 @@ router.post('/create', (req, res) => {
     const { title, content, tags = [], parents = [] } = req.body;
 
     if (!(title || content)) {
-        return res.json({ ok: false, msg: 'missing content' });
+        return res.status(400).json({ ok: false, msg: 'missing content' });
     }
 
     const id = generateNodeId(title + content);
