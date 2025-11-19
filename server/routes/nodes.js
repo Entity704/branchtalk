@@ -68,10 +68,7 @@ router.post('/create', (req, res) => {
 
     saveRoot(rootid, rootData);
 
-    return res.json({
-        status: "ok",
-        id: newId
-    });
+    return res.json({ ok: true, id: newId });
 });
 
 module.exports = router;
