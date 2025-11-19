@@ -2,6 +2,8 @@ import * as api from './api.js';
 import * as ui from './ui.js';
 
 const params = new URLSearchParams(location.search);
+
+const isCreate = params.get('create') === '1';
 const rootId = params.get('id');
 const rootData = await api.getRoot(rootId)
 
@@ -13,7 +15,13 @@ const submit = document.getElementById('submit');
 
 /* --- show nodes --- */
 
-// TODO: complete this
+function renderTree(rootData) {
+    // TODO: complete this
+}
+
+function renderCreateTree() {
+    // TODO: complete this
+}
 
 /* --- handles --- */
 
@@ -51,3 +59,10 @@ switchNodeType()
 
 submit.onclick = handleSubmit;
 isRootRadio.onclick = switchNodeType;
+
+
+if (isCreate) {
+    renderCreateTree();
+} else {
+    renderTree(rootData);
+}
