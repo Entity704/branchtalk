@@ -7,7 +7,7 @@ router.post('/create', (req, res) => {
     const { title, content, tags = [], parents = [] } = req.body;
 
     if (!(title || content)) {
-        return res.status(400).json({ ok: false, msg: 'missing content' });
+        return res.json({ ok: false, msg: 'missing content' });
     }
 
     const id = generateNodeId(title + content);
@@ -69,13 +69,13 @@ router.get('/get', (req, res) => {
     const id = req.query.id;
 
     if (!id) {
-        return res.status(400).json({ error: 'missing id parameter' });
+        return res.json({ error: 'missing id parameter' });
     }
 
     const rootContent = loadRoot(id);
 
     if (!rootContent) {
-        return res.status(404).json({ error: 'root not found' });
+        return res.json({ error: 'root not found' });
     }
 
     res.json(rootContent);

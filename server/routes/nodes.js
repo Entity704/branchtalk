@@ -16,12 +16,12 @@ router.post('/create', (req, res) => {
     }
 
     if (!rootid || !content) {
-        return res.status(400).json({ error: "missing rootid or content" });
+        return res.json({ error: "missing rootid or content" });
     }
 
     const rootData = loadRoot(rootid);
     if (!rootData) {
-        return res.status(404).json({ error: "root file not found" });
+        return res.json({ error: "root file not found" });
     }
 
     let maxLevel = 0;
@@ -30,7 +30,7 @@ router.post('/create', (req, res) => {
         const proot = p.rootid || rootid;
 
         if (p.type === "direct" && p.rootid !== rootid && p.id !== rootid) {
-            return res.status(400).json({ error: "direct parent must be in same root" });
+            return res.json({ error: "direct parent must be in same root" });
         }
 
         if (!pid) return;
