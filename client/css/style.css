@@ -6,9 +6,11 @@ body {
     background-color: #eee;
 }
 
-input {
-    outline-width: 1px;
+input[type='text'] {
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
 }
-input:focus {
-    outline-color: #3b82f6;
+input:focus[type='text'] {
+    outline: none;
+    border-color: #3b82f6;
 }
