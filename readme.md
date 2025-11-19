@@ -32,7 +32,8 @@ branchtalk/
  |    +-- js/
  |         +-- index.js
  |         +-- root.js
- |         +-- api.js
+ |         +-- api.js                    // API encapsulation
+ |         +-- ui.js
  +-- server/
       +-- index.js                       // server program entry
       +-- routes/                        // API routes
@@ -80,7 +81,7 @@ cd server
 node index.js
 ```
 
-4. Open `yourip:8605` in your browser for the homepage
+4. Open `youraddress:8605` in your browser for the homepage
 
 ### On other OS:
 
