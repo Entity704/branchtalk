@@ -7,6 +7,14 @@ const { generateNodeId } = require('../utils/id');
 router.post('/create', (req, res) => {
     const { rootid, content, parents = [] } = req.body;
 
+    if (!parents) {
+        parents.push({
+            type: 'direct',
+            id: rootid,
+            rootid: rootid
+        });
+    }
+
     if (!rootid || !content) {
         return res.status(400).json({ error: "missing rootid or content" });
     }
