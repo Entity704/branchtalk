@@ -3,7 +3,9 @@
 }
 
 body {
-    background-color: #eee;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
 }
 
 input[type='text'] {
@@ -13,4 +15,14 @@ input[type='text'] {
 input:focus[type='text'] {
     outline: none;
     border-color: #3b82f6;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    background-color: #00000000;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #ccc;
 }

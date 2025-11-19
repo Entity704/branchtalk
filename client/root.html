@@ -11,7 +11,12 @@
 
 <body>
     <div id="node-tree">
+        <header>
+            <h1>--</h1>
+        </header>
+        <hr>
     </div>
+
     <div class="editor">
         <div class="top-bar">
             <label class="checkbox">
@@ -23,7 +28,21 @@
             <input type="text" id="editor-tags" placeholder="Tags (comma separated)">
             <button id="submit">Submit</button>
         </div>
-        <div class="refs" id="refs"></div>
+
+        <h6 style="margin: 0;">Parents: </h6>
+        <div class="parents-bar">
+            <div id="refs">
+                <!--
+                <div class="ref-card">
+                    Parent Type<br>
+                    Content...<br>
+                    <button title="Delete">×</button>
+                </div>
+                -->
+            </div>
+            <button id="refs-add" title="Add parent node">+</button>
+        </div>
+
         <textarea id="editor-textarea" placeholder="Content..."></textarea>
     </div>
 </body>

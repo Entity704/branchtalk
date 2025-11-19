@@ -1,20 +1,13 @@
-/* ↓ AIGC ↓ */
-
-/* ---------- Root Page General ---------- */
-body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-color: #ffffff;
-    margin: 0;
-    padding: 0;
-}
-
-/* ---------- Node Tree ---------- */
 #node-tree {
+    margin: 0;
     padding: 2vw;
-    margin-bottom: 38vh; /* 给编辑器预留空间 */
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    text-align: center;
+    overflow-y: auto;
 }
 
-/* 单个节点卡片 */
 .node-card {
     border: 1px solid #ddd;
     border-radius: 0.5em;
@@ -24,30 +17,6 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.node-card.level-0 {
-    background-color: #e0f7fa;
-    border-color: #b2ebf2;
-}
-
-/* 父节点引用显示 */
-.refs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5em;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-}
-
-.refs .ref-card {
-    background-color: #f0f0f0;
-    border-radius: 0.5em;
-    padding: 0.3em 0.6em;
-    font-size: 0.85em;
-    color: #333;
-    border: 1px solid #ddd;
-}
-
-/* ---------- Editor ---------- */
 .editor {
     position: fixed;
     bottom: 1rem;
@@ -64,8 +33,7 @@ body {
     z-index: 10;
 }
 
-/* 顶部标题、checkbox和按钮区域 */
-.editor > .top-bar {
+.editor .top-bar {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -73,7 +41,6 @@ body {
     margin-bottom: 0.5rem;
 }
 
-/* checkbox样式 */
 .checkbox {
     display: flex;
     align-items: center;
@@ -82,9 +49,7 @@ body {
     user-select: none;
 }
 
-/* 输入框：标题和tags */
-#editor-title,
-#editor-tags {
+#editor-title, #editor-tags {
     flex: 1 1 auto;
     min-width: 100px;
     padding: 0.4rem 0.5rem;
@@ -93,8 +58,11 @@ body {
     font-size: 0.95rem;
     box-sizing: border-box;
 }
+#editor-title:focus, #editor-tags:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
 
-/* 提交按钮 */
 #submit {
     padding: 0.45rem 0.75rem;
     border: none;
@@ -108,33 +76,83 @@ body {
     background-color: #2563eb;
 }
 
-/* refs显示区 */
-.refs {
+.parents-bar {
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     gap: 0.3rem;
-    margin: 0.5rem 0;
+    margin: 0.1rem 0;
+    padding-right: 2px;
+    border: 1px solid #eee;
+    border-radius: 1rem;
+    overflow: hidden;
 }
 
-/* ref单元 */
+.parents-bar button {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    height: 3.2rem;
+    transition: all 0.2s;
+}
+.parents-bar button:hover {
+    background-color: #eee;
+}
+
+#refs {
+    display: flex;
+    flex: 1;
+    gap: 0.3rem;
+    overflow-x: auto;
+    width: 0;
+}
+
 .ref-card {
-    background-color: #f0f0f0;
-    padding: 0.2rem 0.4rem;
-    border-radius: 0.3rem;
-    font-size: 0.8rem;
+    position: relative;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    margin: 2px;
+    min-width: 5rem;
+    background: #fafafa;
+    font-size: small;
 }
 
-/* 文本区域 */
+.ref-card button {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 1;
+    background-color: #ffbcbc;
+    color: #ff4343;
+    border: 1px solid #ff4343;
+    border-radius: 50%;
+    padding: 0;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.ref-card button:hover {
+    background-color: #ff4343;
+    color: #fff;
+    border-color: #ff1212;
+}
+
 textarea {
     width: 100%;
-    min-height: 6rem;
+    min-height: 5rem;
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
-    resize: vertical;
+    resize: none;
     font-size: 0.95rem;
     box-sizing: border-box;
 }
+
 textarea:focus {
     outline: none;
     border-color: #3b82f6;
