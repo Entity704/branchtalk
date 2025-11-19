@@ -2,10 +2,18 @@
     margin: 0;
     padding: 2vw;
     width: 100vw;
-    height: 100vh;
     box-sizing: border-box;
     text-align: center;
-    overflow-y: auto;
+    padding-bottom: 40vh;
+}
+
+#node-tree h1 {
+    margin: 0;
+}
+
+.tag {
+    border: 1px solid #ccc;
+    border-radius: 0.2rem;
 }
 
 .node-card {
@@ -27,7 +35,7 @@
     background-color: #fafafa;
     border: 1px solid #ddd;
     border-radius: 1em;
-    padding: 1rem;
+    padding: 0.8rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     box-sizing: border-box;
     z-index: 10;
@@ -38,7 +46,6 @@
     flex-wrap: wrap;
     gap: 0.5rem;
     align-items: center;
-    margin-bottom: 0.5rem;
 }
 
 .checkbox {
@@ -80,10 +87,11 @@
     display: flex;
     align-items: center;
     gap: 0.3rem;
-    margin: 0.1rem 0;
+    margin: 6px 0;
     padding-right: 2px;
     border: 1px solid #eee;
-    border-radius: 1rem;
+    border-radius: 14px;
+    min-height: 3.4rem;
     overflow: hidden;
 }
 
