@@ -1,26 +1,48 @@
 #node-tree {
     margin: 0;
-    padding: 2vw;
+    padding: 0;
     width: 100vw;
     box-sizing: border-box;
     text-align: center;
-    padding-bottom: 40vh;
 }
 
 #node-tree h1 {
     margin: 0;
 }
 
+#last-updated {
+    font-size: small;
+    color: #777;
+}
+
+#tags {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-size: small;
+}
+
 .tag {
+    margin: 2px;
+    padding: 3px;
+    background-color: #fcfcfc;
     border: 1px solid #ccc;
     border-radius: 0.2rem;
 }
 
+#nodes {
+    position: relative;
+    overflow-x: auto;
+    padding-bottom: 4rem;
+}
+
 .node-card {
+    position: absolute;
     border: 1px solid #ddd;
-    border-radius: 0.5em;
-    padding: 0.8em 1em;
-    margin-bottom: 1em;
+    border-radius: 0.5rem;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+    width: 10rem;
     background-color: #fdfdfd;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
@@ -31,14 +53,52 @@
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
+    max-height: 2rem;
     max-width: 800px;
     background-color: #fafafa;
     border: 1px solid #ddd;
-    border-radius: 1em;
+    border-radius: 1rem;
     padding: 0.8rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     box-sizing: border-box;
+    overflow: hidden;
     z-index: 10;
+    transition: all 0.4s ease-in;
+}
+.editor:hover, .editor:focus-within {
+    max-height: 18rem;
+}
+
+.editor > * {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease-in;
+}
+.editor:hover > *,
+.editor:focus-within > * {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.editor::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 3px;
+    background: #666;
+    border-radius: 2px;
+    transform: translate(-50%, -50%);
+    box-shadow:
+        0 -6px 0 #666,
+        0  6px 0 #666;
+    opacity: 0.6;
+    transition: opacity 0.4s ease-in;
+}
+.editor:hover::before,
+.editor:focus-within::before {
+    opacity: 0;
 }
 
 .editor .top-bar {
@@ -53,6 +113,7 @@
     align-items: center;
     gap: 0.25rem;
     font-size: 0.9rem;
+    cursor: pointer;
     user-select: none;
 }
 
@@ -152,7 +213,7 @@
 
 textarea {
     width: 100%;
-    min-height: 5rem;
+    min-height: 6rem;
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
