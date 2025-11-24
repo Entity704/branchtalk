@@ -17,9 +17,13 @@ input:focus[type='text'] {
     border-color: #3b82f6;
 }
 
+input[type='checkbox'] {
+    cursor: pointer;
+}
+
 ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
     background-color: #00000000;
 }
 
