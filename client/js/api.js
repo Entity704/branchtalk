@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8605/api";
+const API_BASE = `${window.location.origin}/api`;
 
 export async function getIndex() {
     const res = await fetch(`${API_BASE}/index/get`);
