@@ -10,7 +10,11 @@ if(!isCreate) {
     rootData = await api.getRoot(rootId);
 }
 
-const nodeTree = document.getElementById('node-tree');
+const html = document.documentElement;
+const nodeTree = document.getElementById('nodes');
+const tagBar = document.getElementById('tags');
+const spacer = document.createElement('div');
+spacer.style.pointerEvents = 'none';
 
 const isRootRadio = document.getElementById('isRoot');
 const titleInput = document.getElementById('editor-title');
@@ -23,28 +27,53 @@ let createNodeParents = [];
 const createPage = {
     root_node: {
         title: 'Create New Node',
-        timestamp: Date.now() / 1000,
         tags: [],
         parents: [],
         content: 'You can create a new branch tree (root node) on this page'
-    },
-    nodes: []
+    }
 }
 
 /* --- show nodes --- */
 
+let levels = [];
 function renderTree(rootData) {
-    document.getElementById('nodes').innerHTML = '';
+    nodeTree.innerHTML = '';
+
+    spacer.style.width = '1px';
+    spacer.style.height = '1px';
+    nodeTree.appendChild(spacer);
 
     document.getElementById('title').textContent = rootData.root_node.title;
-    document.getElementById('last-updated').textContent = (new Date(rootData.root_node.timestamp * 1000).toLocaleString());
+    document.getElementById('last-updated').textContent = rootData.root_node.timestamp ? (new Date(rootData.root_node.timestamp * 1000).toLocaleString()) : '';
     document.getElementById('content').textContent = rootData.root_node.content;
 
-    // TODO: complete this
-}
+    rootData.root_node.tags?.forEach(t => {
+        const tag = document.createElement('span');
+        tag.textContent = t;
+        tag.className = 'tag';
+        tagBar.appendChild(tag);
+    });
 
-function renderCreateTree() {
-    renderTree(createPage);
+    rootData.nodes?.forEach(n => {
+        const node = document.createElement('div');
+        node.textContent = n.content;
+        node.className = 'node-card';
+
+        levels[n.level] = (levels[n.level] || 0) + 1;
+
+        node.style.top = `${n.level * 8 - 6}rem`;
+        node.style.left = `${(levels[n.level] - 1) * 14 + 2}rem`;
+
+        spacer.style.width = Math.max(
+            parseFloat(spacer.style.width),
+            parseFloat(node.style.left) + 15) + 'rem';
+        spacer.style.height = Math.max(
+            parseFloat(spacer.style.height),
+            parseFloat(node.style.top) + 12) + 'rem';
+        nodeTree.appendChild(node);
+
+        // TODO: complete this
+    });
 }
 
 /* --- handles --- */
@@ -70,6 +99,7 @@ async function handleSubmit() {
     if (res.ok) {
         input.value = '';
         ui.notice('Submit succeed!', '#108610');
+        if (!isCreate) { renderTree(rootData) };
     } else {
         ui.notice('Submit failed!');
     }
@@ -86,6 +116,57 @@ function switchNodeType() {
 }
 switchNodeType()
 
+function setCreateTree() {
+    document.getElementById('isRootLabel').style.display = 'none';
+    isRootRadio.checked = true;
+    switchNodeType();
+    renderTree(createPage);
+}
+
+let dragging = false;
+let startX = 0;
+let startY = 0;
+let scrollLeft = 0;
+let scrollTop = 0;
+
+nodeTree.addEventListener('mousedown', e => {
+    if (e.target !== nodeTree) return;
+
+    dragging = true;
+    startX = e.clientX;
+    startY = e.clientY;
+
+    scrollLeft = nodeTree.scrollLeft;
+    scrollTop = html.scrollTop;
+
+    e.preventDefault();
+});
+
+window.addEventListener('mousemove', e => {
+    if (!dragging) return;
+
+    nodeTree.scrollTo({
+        left: scrollLeft - (e.clientX - startX)
+    });
+    html.scrollTo({
+        top: scrollTop - (e.clientY - startY)
+    });
+});
+
+window.addEventListener('mouseup', () => dragging = false);
+
+nodeTree.addEventListener('mouseover', (e) => {
+    if (e.target === nodeTree) {
+        nodeTree.style.cursor = 'all-scroll';
+    }
+});
+
+nodeTree.addEventListener('mouseout', (e) => {
+    if (e.target === nodeTree) {
+        nodeTree.style.cursor = 'auto';
+    }
+});
+
 /* --- button binds --- */
 
 submit.onclick = handleSubmit;
@@ -93,7 +174,7 @@ isRootRadio.onclick = switchNodeType;
 
 
 if (isCreate) {
-    renderCreateTree();
+    setCreateTree();
 } else {
     renderTree(rootData);
 }
