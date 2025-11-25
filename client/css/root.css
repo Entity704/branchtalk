@@ -33,18 +33,29 @@
 #nodes {
     position: relative;
     overflow-x: auto;
-    padding-bottom: 4rem;
 }
 
 .node-card {
     position: absolute;
+    box-sizing: border-box;
     border: 1px solid #ddd;
     border-radius: 0.5rem;
     padding: 0.8rem 1rem;
     margin-bottom: 1rem;
-    width: 10rem;
+    width: 16rem;
+    min-height: 3rem;
     background-color: #fdfdfd;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+path {
+    stroke-width: 4px;
+    stroke: #ddd;
+    transition: all 0.3s;
+}
+path:hover {
+    stroke-width: 6px;
+    stroke: #888;
 }
 
 .editor {

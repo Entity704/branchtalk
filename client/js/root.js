@@ -1,19 +1,35 @@
 import * as api from './api.js';
 import * as ui from './ui.js';
+import * as utils from './utils.js';
 
 const params = new URLSearchParams(location.search);
 
 const isCreate = params.get('create') === '1';
 let rootId, rootData;
+let createNodeParents = [];
 if(!isCreate) {
     rootId = params.get('id');
     rootData = await api.getRoot(rootId);
+    createNodeParents.push({
+        rootid: rootId,
+        id: rootId,
+        type: 'direct'
+    });
 }
 
 const html = document.documentElement;
 const nodeTree = document.getElementById('nodes');
 const tagBar = document.getElementById('tags');
 const spacer = document.createElement('div');
+const links = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+
+links.style.display = 'block';
+links.style.position = 'absolute';
+links.style.top = '0';
+links.style.left = '0';
+
+spacer.style.width = '1px';
+spacer.style.height = '1px';
 spacer.style.pointerEvents = 'none';
 
 const isRootRadio = document.getElementById('isRoot');
@@ -21,8 +37,6 @@ const titleInput = document.getElementById('editor-title');
 const tagsInput = document.getElementById('editor-tags');
 const input = document.getElementById('editor-textarea');
 const submit = document.getElementById('submit');
-
-let createNodeParents = [];
 
 const createPage = {
     root_node: {
@@ -36,12 +50,12 @@ const createPage = {
 /* --- show nodes --- */
 
 let levels = [];
+let nodePos = {};
 function renderTree(rootData) {
     nodeTree.innerHTML = '';
 
-    spacer.style.width = '1px';
-    spacer.style.height = '1px';
     nodeTree.appendChild(spacer);
+    nodeTree.appendChild(links);
 
     document.getElementById('title').textContent = rootData.root_node.title;
     document.getElementById('last-updated').textContent = rootData.root_node.timestamp ? (new Date(rootData.root_node.timestamp * 1000).toLocaleString()) : '';
@@ -55,25 +69,57 @@ function renderTree(rootData) {
     });
 
     rootData.nodes?.forEach(n => {
+        levels[n.level] = (levels[n.level] || 0) + 1;
+
+        nodePos[n.id] = {
+            x: (levels[n.level] - 1) * 22 + 2,
+            y: n.level * 12 - 2
+        };
+    });
+
+    rootData.nodes?.forEach(n => {
         const node = document.createElement('div');
         node.textContent = n.content;
         node.className = 'node-card';
 
-        levels[n.level] = (levels[n.level] || 0) + 1;
+        const posX = nodePos[n.id].x;
+        const posY = nodePos[n.id].y;
 
-        node.style.top = `${n.level * 8 - 6}rem`;
-        node.style.left = `${(levels[n.level] - 1) * 14 + 2}rem`;
+        node.style.top = `${posY}rem`;
+        node.style.left = `${posX}rem`;
 
         spacer.style.width = Math.max(
             parseFloat(spacer.style.width),
-            parseFloat(node.style.left) + 15) + 'rem';
+            posX + 22) + 'rem';
         spacer.style.height = Math.max(
             parseFloat(spacer.style.height),
-            parseFloat(node.style.top) + 12) + 'rem';
+            posY + 20) + 'rem';
+
+        rootData.nodes.forEach(bn => {
+            let parentNode = n.parents.find(item => item.id === bn.id && item.type === 'direct') ||
+                n.parents.find(item => item.id === rootData.root_node.id && item.type === 'direct');
+
+                if (!parentNode) return;
+
+            const link = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            link.setAttribute('d', utils.linkCurve(
+                (nodePos[parentNode?.id]?.x ?? posX) + 8,
+                (nodePos[parentNode.id]?.y ?? -2.8) + 2.8,
+                posX + 8, posY + 0.2)
+            );
+            link.setAttribute('fill', 'none');
+            links.appendChild(link);
+        });
+
         nodeTree.appendChild(node);
 
         // TODO: complete this
     });
+
+    links.setAttribute('width', parseFloat(spacer.style.width) * 16);
+    links.setAttribute('height', parseFloat(spacer.style.height) * 16);
+    links.style.width = `${parseFloat(spacer.style.width) * 16}px`;
+    links.style.height = `${parseFloat(spacer.style.height) * 16}px`;
 }
 
 /* --- handles --- */
@@ -90,7 +136,7 @@ async function handleSubmit() {
         res = await api.createNode(
             {
                 rootid: rootId,
-                content: input.value,
+                content,
                 parents: createNodeParents
             }
         );
@@ -130,7 +176,7 @@ let scrollLeft = 0;
 let scrollTop = 0;
 
 nodeTree.addEventListener('mousedown', e => {
-    if (e.target !== nodeTree) return;
+    if (e.target !== nodeTree && e.target !== links) return;
 
     dragging = true;
     startX = e.clientX;
@@ -156,13 +202,13 @@ window.addEventListener('mousemove', e => {
 window.addEventListener('mouseup', () => dragging = false);
 
 nodeTree.addEventListener('mouseover', (e) => {
-    if (e.target === nodeTree) {
+    if (e.target === nodeTree || e.target === links) {
         nodeTree.style.cursor = 'all-scroll';
     }
 });
 
 nodeTree.addEventListener('mouseout', (e) => {
-    if (e.target === nodeTree) {
+    if (e.target === nodeTree || e.target === links) {
         nodeTree.style.cursor = 'auto';
     }
 });
