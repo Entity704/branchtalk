@@ -5,14 +5,13 @@ const { saveRoot, loadRoot } = require('../services/dataService');
 const { generateNodeId } = require('../utils/id');
 
 router.post('/create', (req, res) => {
-    const { rootid, content, parents = [] } = req.body;
-
-    if (!parents) {
-        parents.push({
+    let { rootid, content, parents } = req.body;
+    if (!parents || !parents.length) {
+        parents = [{
             type: 'direct',
             id: rootid,
             rootid: rootid
-        });
+        }];
     }
 
     if (!rootid || !content) {
