@@ -1,3 +1,11 @@
+/**
+ * generate link curve path tag parameter
+ * @param {*} x1 start X
+ * @param {*} y1 start Y
+ * @param {*} x2 end X
+ * @param {*} y2 end Y
+ * @returns path tag parameter string
+ */
 export function linkCurve(x1, y1, x2, y2, curvature = 0.5) {
     x1 *= 16;
     y1 *= 16;

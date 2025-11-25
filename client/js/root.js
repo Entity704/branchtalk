@@ -68,6 +68,7 @@ function renderTree(rootData) {
         tagBar.appendChild(tag);
     });
 
+    // Precompute position
     rootData.nodes?.forEach(n => {
         levels[n.level] = (levels[n.level] || 0) + 1;
 
@@ -99,7 +100,7 @@ function renderTree(rootData) {
             let parentNode = n.parents.find(item => item.id === bn.id && item.type === 'direct') ||
                 n.parents.find(item => item.id === rootData.root_node.id && item.type === 'direct');
 
-                if (!parentNode) return;
+            if (!parentNode) return;
 
             const link = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             link.setAttribute('d', utils.linkCurve(
@@ -145,7 +146,7 @@ async function handleSubmit() {
     if (res.ok) {
         input.value = '';
         ui.notice('Submit succeed!', '#108610');
-        if (!isCreate) { renderTree(rootData) };
+        if (!isCreate) { location.reload() };
     } else {
         ui.notice('Submit failed!');
     }
@@ -169,6 +170,7 @@ function setCreateTree() {
     renderTree(createPage);
 }
 
+// Draging handle
 let dragging = false;
 let startX = 0;
 let startY = 0;
