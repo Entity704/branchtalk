@@ -34,6 +34,7 @@ branchtalk/
  |         +-- root.js
  |         +-- api.js                    // API encapsulation
  |         +-- ui.js
+ |         +-- utils.js
  +-- server/
       +-- index.js                       // server program entry
       +-- routes/                        // API routes
